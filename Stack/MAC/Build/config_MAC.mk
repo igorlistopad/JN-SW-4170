@@ -38,22 +38,8 @@ INCFLAGS += -I$(COMPONENTS_BASE_DIR)/MAC/Include
 INCFLAGS += -I$(COMPONENTS_BASE_DIR)/TimerServer/Include
 INCFLAGS += -I$(COMPONENTS_BASE_DIR)/PDM/Include
 
-ifeq ($(JENNIC_CHIP_FAMILY), JN514x)
-    INCFLAGS += -I$(COMPONENTS_BASE_DIR)/Random/Include
-endif
-
 ###############################################################################
 # RAM based software components
-
-ifeq ($(JENNIC_CHIP_FAMILY), JN514x)
-    APPLIBS +=DBG
-    APPLIBS +=AES_SW
-    APPLIBS +=PDM
-endif
-
-ifeq ($(JENNIC_CHIP_FAMILY), JN513x)
-    APPLIBS +=Random
-endif
 
 INCFLAGS += $(addsuffix /Include,$(addprefix -I$(COMPONENTS_BASE_DIR)/,$(APPLIBS)))
 

@@ -36,9 +36,6 @@
 
 INCFLAGS += -I$(COMPONENTS_BASE_DIR)/Mac/Include
 INCFLAGS += -I$(COMPONENTS_BASE_DIR)/TimerServer/Include
-ifeq ($(JENNIC_CHIP_FAMILY), JN514x)
-    INCFLAGS += -I$(COMPONENTS_BASE_DIR)/Random/Include
-endif
 
 ###############################################################################
 # RAM based software components

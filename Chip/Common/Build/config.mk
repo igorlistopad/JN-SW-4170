@@ -89,15 +89,7 @@ CFLAGS += -DEMBEDDED
 ###############################################################################
 
 TOOL_BASE_DIR ?= $(SDK_BASE_DIR)/Tools
-
-ifeq ($(JENNIC_CHIP_FAMILY), JN517x)
-    $(info Using LPC XPresso toolchain)
-    TOOL_COMMON_BASE_DIR ?= $(SDK_BASE_DIR)/../../tools
-else
-    TOOL_COMMON_BASE_DIR ?= $(SDK_BASE_DIR)/../Tools
-endif
-
-SUBWCREV ?= $(TOOL_BASE_DIR)/TortoiseSVN/bin/subwcrev
+TOOL_COMMON_BASE_DIR ?= $(SDK_BASE_DIR)/../Tools
 
 ###############################################################################
 # Toolchain
@@ -106,12 +98,7 @@ SUBWCREV ?= $(TOOL_BASE_DIR)/TortoiseSVN/bin/subwcrev
 CC = gcc
 AS = as
 LD = ld
-ifeq ($(JENNIC_CHIP_FAMILY), JN517x)
-    $(info Using gcc-ar)
-    AR = gcc-ar
-else
-    AR = ar
-endif
+AR = ar
 NM = nm
 STRIP = strip
 SIZE = size

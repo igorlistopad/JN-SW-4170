@@ -42,14 +42,12 @@ BDB_COMN_SRC_DIR = $(COMPONENTS_BASE_DIR)/BDB/Source/Common
 COMN_SRC := $(shell cd $(BDB_COMN_SRC_DIR); ls *.c)
 APPSRC += $(COMN_SRC)
 
-ifeq ($(JENNIC_CHIP_FAMILY), $(filter $(JENNIC_CHIP_FAMILY),JN517x JN516x))
-    # ZigBee Common Include and Source
-    ZIGBEE_COMN_INC_DIR = $(COMPONENTS_BASE_DIR)/ZigbeeCommon/Include
-    ZIGBEE_COMN_SRC_DIR = $(COMPONENTS_BASE_DIR)/ZigbeeCommon/Source
-    ZIGBEE_COMN_SRC += appZpsBeaconHandler.c
-    ZIGBEE_COMN_SRC += appZdpExtraction.c
-    APPSRC += $(ZIGBEE_COMN_SRC)
-endif
+# ZigBee Common Include and Source
+ZIGBEE_COMN_INC_DIR = $(COMPONENTS_BASE_DIR)/ZigbeeCommon/Include
+ZIGBEE_COMN_SRC_DIR = $(COMPONENTS_BASE_DIR)/ZigbeeCommon/Source
+ZIGBEE_COMN_SRC += appZpsBeaconHandler.c
+ZIGBEE_COMN_SRC += appZdpExtraction.c
+APPSRC += $(ZIGBEE_COMN_SRC)
 
 ifeq ($(ZBPRO_DEVICE_TYPE), ZCR)
     CFLAGS += -DZBPRO_DEVICE_TYPE_ZCR
@@ -144,10 +142,6 @@ endif
 
 ###############################################################################
 
-ifeq ($(JENNIC_CHIP_FAMILY), $(filter $(JENNIC_CHIP_FAMILY),JN517x JN516x))
-    BDB_SRC_DIR = $(BDB_COMN_SRC_DIR):$(ZIGBEE_COMN_SRC_DIR):$(BDB_NS_SRC_DIR):$(BDB_NF_SRC_DIR):$(BDB_TL_SRC_DIR):$(BDB_FB_INI_SRC_DIR): $(BDB_FB_TAR_SRC_DIR): $(BDB_OOB_SRC_DIR)
-else
-    BDB_SRC_DIR = $(BDB_COMN_SRC_DIR):$(BDB_NS_SRC_DIR):$(BDB_NF_SRC_DIR):$(BDB_TL_SRC_DIR):$(BDB_FB_INI_SRC_DIR): $(BDB_FB_TAR_SRC_DIR): $(BDB_OOB_SRC_DIR)
-endif
+BDB_SRC_DIR = $(BDB_COMN_SRC_DIR):$(ZIGBEE_COMN_SRC_DIR):$(BDB_NS_SRC_DIR):$(BDB_NF_SRC_DIR):$(BDB_TL_SRC_DIR):$(BDB_FB_INI_SRC_DIR): $(BDB_FB_TAR_SRC_DIR): $(BDB_OOB_SRC_DIR)
 
 ###############################################################################
