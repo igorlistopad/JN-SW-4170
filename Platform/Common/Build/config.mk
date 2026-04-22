@@ -1,14 +1,14 @@
-#############################################################################
+###############################################################################
 #
-# MODULE:     	Platform Configuration Makefile inc. DK3
+# MODULE:      Platform Configuration Makefile inc. DK3
 #
-# COMPONENT:  	Config.mk
+# COMPONENT:   Config.mk
 #
-# VERSION:   	R and D Release 6 JAN 2011
+# VERSION:     R and D Release 6 JAN 2011
 #
-# DESCRIPTION:	Selects Development Kit definitions based on JENNIC_PCB
+# DESCRIPTION: Selects Development Kit definitions based on JENNIC_PCB
 #
-############################################################################
+###############################################################################
 #
 # This software is owned by NXP B.V. and/or its supplier and is protected
 # under applicable copyright laws. All rights are reserved. We grant You,
@@ -32,38 +32,39 @@
 #
 # Copyright NXP B.V. 2012. All rights reserved
 #
-############################################################################
+###############################################################################
 
 ifdef JENNIC_PCB
-	ifeq ($(JENNIC_PCB),DEVKIT1)
-		PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/DK1
-	else
-		ifeq ($(JENNIC_PCB),DEVKIT2)
-			PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/DK2
-		else
-			ifeq ($(JENNIC_PCB),HPDEVKIT)
-				PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/HPDevKit
-			else
-				ifeq ($(JENNIC_PCB),NTS)
-					PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/NTS
-				else
-					ifeq ($(JENNIC_PCB),DEVKIT3)
-						PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/DK3
-					else
-						ifeq ($(JENNIC_PCB),DEVKIT4)
-							PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/DK4
-						else
-							ifeq ($(JENNIC_PCB),DEVKIT5)
-								PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/DK5
-							else
-								$(error JENNIC_PCB is not defined. Define for the Jennic development kit you are using.)
-							endif
-						endif
-					endif
-				endif
-			endif
-		endif
-	endif
+
+ifeq ($(JENNIC_PCB), DEVKIT1)
+    PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/DK1
+else
+    ifeq ($(JENNIC_PCB), DEVKIT2)
+        PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/DK2
+    else
+        ifeq ($(JENNIC_PCB), HPDEVKIT)
+            PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/HPDevKit
+        else
+            ifeq ($(JENNIC_PCB), NTS)
+                PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/NTS
+            else
+                ifeq ($(JENNIC_PCB), DEVKIT3)
+                    PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/DK3
+                else
+                    ifeq ($(JENNIC_PCB), DEVKIT4)
+                        PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/DK4
+                    else
+                        ifeq ($(JENNIC_PCB), DEVKIT5)
+                            PLATFORM_BASE_DIR = $(SDK_BASE_DIR)/Platform/DK5
+                        else
+                            $(error JENNIC_PCB is not defined. Define for the Jennic development kit you are using.)
+                        endif
+                    endif
+                endif
+            endif
+        endif
+    endif
+endif
 
 ###############################################################################
 # Compiler flags
@@ -71,7 +72,6 @@ ifdef JENNIC_PCB
 CFLAGS += -I$(SDK_BASE_DIR)/Platform/Common/Include
 
 # Define the selected Jennic platform
-
 CFLAGS += -DJENNIC_PCB=$(JENNIC_PCB)
 CFLAGS += -DJENNIC_PCB_$(JENNIC_PCB)
 
@@ -83,4 +83,3 @@ include $(PLATFORM_BASE_DIR)/Build/PlatformConfig.mk
 endif
 
 ###############################################################################
-

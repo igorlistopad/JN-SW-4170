@@ -1,18 +1,18 @@
-#############################################################################
+###############################################################################
 #
-# MODULE:     	Platform specific Makefile for DK3 
+# MODULE:      Platform specific Makefile for DK3
 #
-# COMPONENT:  	PlatformConfig.mk
+# COMPONENT:   PlatformConfig.mk
 #
-# VERSION:   	R and D Release 6 JAN 2011
+# VERSION:     R and D Release 6 JAN 2011
 #
-# REVISION:    	1.0
+# REVISION:    1.0
 #
-# DATED:       	2011/01/07
+# DATED:       2011/01/07
 #
-# AUTHOR:       sbarf
+# AUTHOR:      sbarf
 #
-# DESCRIPTION:	DK3 Platform specific definitions		
+# DESCRIPTION: DK3 Platform specific definitions        
 #
 ###############################################################################
 # 

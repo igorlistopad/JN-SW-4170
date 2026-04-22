@@ -1,18 +1,18 @@
 ###############################################################################
 #
-# MODULE:   Config_None.mk
+# MODULE:      Config_None.mk
 #
 # DESCRIPTION: Stack configuration for using no stack from ROM
-# defines tool, library and header file details
+#              defines tool, library and header file details
 #
-############################################################################
+###############################################################################
 #
 # This software is owned by NXP B.V. and/or its supplier and is protected
 # under applicable copyright laws. All rights are reserved. We grant You,
 # and any third parties, a license to use this software solely and
-# exclusively on NXP products [NXP Microcontrollers such as JN5148, JN5142, JN5139]. 
+# exclusively on NXP products [NXP Microcontrollers such as JN5148, JN5142, JN5139].
 # You, and any third parties must reproduce the copyright and warranty notice
-# and any other legend of ownership on each copy or partial copy of the 
+# and any other legend of ownership on each copy or partial copy of the
 # software.
 #
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
@@ -29,16 +29,15 @@
 #
 # Copyright NXP B.V. 2012. All rights reserved
 #
-############################################################################
-
+###############################################################################
 
 ###############################################################################
 # ROM based software components
 
 INCFLAGS += -I$(COMPONENTS_BASE_DIR)/Mac/Include
 INCFLAGS += -I$(COMPONENTS_BASE_DIR)/TimerServer/Include
-ifeq ($(JENNIC_CHIP_FAMILY), JN514x)	
-INCFLAGS += -I$(COMPONENTS_BASE_DIR)/Random/Include
+ifeq ($(JENNIC_CHIP_FAMILY), JN514x)
+    INCFLAGS += -I$(COMPONENTS_BASE_DIR)/Random/Include
 endif
 
 ###############################################################################
@@ -47,14 +46,14 @@ endif
 INCFLAGS += $(addsuffix /Include,$(addprefix -I$(COMPONENTS_BASE_DIR)/,$(APPLIBS)))
 
 ifneq ($(BUILD), ROM)
-#CFLAGS += -DAPPAPI_IN_RAM
-CFLAGS += -DRAM_BUILD
+    #CFLAGS += -DAPPAPI_IN_RAM
+    CFLAGS += -DRAM_BUILD
 endif
 
 ifeq ($(TRACE), 1)
-CFLAGS  += -DDBG_ENABLE
-LDLIBS += DBG_$(JENNIC_CHIP_FAMILY)
-$(info Building trace version ...)
+    CFLAGS += -DDBG_ENABLE
+    LDLIBS += DBG_$(JENNIC_CHIP_FAMILY)
+    $(info Building trace version ...)
 endif
 
 ###############################################################################

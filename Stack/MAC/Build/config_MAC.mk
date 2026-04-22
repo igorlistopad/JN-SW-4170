@@ -1,18 +1,18 @@
 ###############################################################################
 #
-# MODULE:   Config_MAC.mk
+# MODULE:      Config_MAC.mk
 #
 # DESCRIPTION: MAC stack configuration
-# defines tool, library and header file details
+#              defines tool, library and header file details
 #
-############################################################################
+###############################################################################
 #
 # This software is owned by NXP B.V. and/or its supplier and is protected
 # under applicable copyright laws. All rights are reserved. We grant You,
 # and any third parties, a license to use this software solely and
-# exclusively on NXP products [NXP Microcontrollers such as JN5148, JN5142, JN5139]. 
+# exclusively on NXP products [NXP Microcontrollers such as JN5148, JN5142, JN5139].
 # You, and any third parties must reproduce the copyright and warranty notice
-# and any other legend of ownership on each copy or partial copy of the 
+# and any other legend of ownership on each copy or partial copy of the
 # software.
 #
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
@@ -29,8 +29,7 @@
 #
 # Copyright NXP B.V. 2012. All rights reserved
 #
-############################################################################
-
+###############################################################################
 
 ###############################################################################
 # ROM based software components
@@ -38,28 +37,30 @@
 INCFLAGS += -I$(COMPONENTS_BASE_DIR)/MAC/Include
 INCFLAGS += -I$(COMPONENTS_BASE_DIR)/TimerServer/Include
 INCFLAGS += -I$(COMPONENTS_BASE_DIR)/PDM/Include
-ifeq ($(JENNIC_CHIP_FAMILY), JN514x)	
-INCFLAGS += -I$(COMPONENTS_BASE_DIR)/Random/Include
+
+ifeq ($(JENNIC_CHIP_FAMILY), JN514x)
+    INCFLAGS += -I$(COMPONENTS_BASE_DIR)/Random/Include
 endif
 
 ###############################################################################
 # RAM based software components
 
-ifeq ($(JENNIC_CHIP_FAMILY), JN514x)	
-APPLIBS +=DBG
-APPLIBS +=AES_SW
-APPLIBS +=PDM
+ifeq ($(JENNIC_CHIP_FAMILY), JN514x)
+    APPLIBS +=DBG
+    APPLIBS +=AES_SW
+    APPLIBS +=PDM
 endif
-ifeq ($(JENNIC_CHIP_FAMILY), JN513x)	
-APPLIBS +=Random
+
+ifeq ($(JENNIC_CHIP_FAMILY), JN513x)
+    APPLIBS +=Random
 endif
 
 INCFLAGS += $(addsuffix /Include,$(addprefix -I$(COMPONENTS_BASE_DIR)/,$(APPLIBS)))
 
 ifeq ($(TRACE), 1)
-CFLAGS  += -DDBG_ENABLE
-LDLIBS += DBG_$(JENNIC_CHIP_FAMILY)
-$(info Building trace version ...)
+    CFLAGS += -DDBG_ENABLE
+    LDLIBS += DBG_$(JENNIC_CHIP_FAMILY)
+    $(info Building trace version ...)
 endif
 
 ###############################################################################

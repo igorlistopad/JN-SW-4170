@@ -1,10 +1,10 @@
 ###############################################################################
 #
-# MODULE:   PlatformConfig.mk
+# MODULE:      PlatformConfig.mk
 #
 # DESCRIPTION: DK4 Platform specific definitions
 #
-############################################################################
+###############################################################################
 #
 # This software is owned by NXP B.V. and/or its supplier and is protected
 # under applicable copyright laws. All rights are reserved. We grant You,
@@ -28,8 +28,7 @@
 #
 # Copyright NXP B.V. 2012. All rights reserved
 #
-############################################################################
-
+###############################################################################
 
 ###############################################################################
 # Compiler

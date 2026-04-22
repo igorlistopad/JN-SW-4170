@@ -1,13 +1,14 @@
-#############################################################################
+###############################################################################
 #
-# MODULE:     	Makefile for DK4 Platform
+# MODULE:      Makefile for DK4 Platform
 #
-# COMPONENT:  	BoardLib.mk
+# COMPONENT:   BoardLib.mk
 #
-# VERSION:   	R and D Release 6 JAN 2011
+# VERSION:     R and D Release 6 JAN 2011
 #
-# DESCRIPTION:	Localised version of same found in Platform/Common/Build
-############################################################################
+# DESCRIPTION: Localised version of same found in Platform/Common/Build
+#
+###############################################################################
 #
 # This software is owned by NXP B.V. and/or its supplier and is protected
 # under applicable copyright laws. All rights are reserved. We grant You,
@@ -31,18 +32,15 @@
 #
 # Copyright NXP B.V. 2012. All rights reserved
 #
-############################################################################
+###############################################################################
 
-#
 # Base directory of sdk2 layout i.e c:\Jennic
 SDK_BASE_DIR = ../../..
 
-#  DK4 remote board only
-
+# DK4 remote board only
 BOARDDK4_BASE = $(SDK_BASE_DIR)/Platform/DK4
 
 BOARDCOMMON_BASE = $(SDK_BASE_DIR)/Platform
-
 
 export SDK_BASE_DIR
 export BOARDDK4_BASE
@@ -50,21 +48,16 @@ export BOARDCOMMON_BASE
 export JENNIC_PCB
 export JENNIC_CHIP
 
-
-
 include $(SDK_BASE_DIR)/Chip/Common/Build/config.mk
 
-#########################################################################
-
-
-#########################################################################
+###############################################################################
 
 all:
-	make -C $(BOARDDK4_BASE)/Build -f BoardLib_$(JENNIC_CHIP_FAMILY).mk
+    make -C $(BOARDDK4_BASE)/Build -f BoardLib_$(JENNIC_CHIP_FAMILY).mk
 
-#########################################################################
+###############################################################################
 
 clean:
-	make -C $(BOARDDK4_BASE)/Build -f BoardLib_$(JENNIC_CHIP_FAMILY).mk clean
+    make -C $(BOARDDK4_BASE)/Build -f BoardLib_$(JENNIC_CHIP_FAMILY).mk clean
 
-#########################################################################
+###############################################################################

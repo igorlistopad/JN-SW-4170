@@ -1,10 +1,10 @@
-#############################################################################
+###############################################################################
 #
-# MODULE:     	Makefile for DK3 Platform
+# MODULE:    Makefile for DK3 Platform
 #
-# COMPONENT:  	BoardLib.mk
+# COMPONENT: BoardLib.mk
 #
-############################################################################
+###############################################################################
 #
 # This software is owned by NXP B.V. and/or its supplier and is protected
 # under applicable copyright laws. All rights are reserved. We grant You,
@@ -28,8 +28,7 @@
 #
 # Copyright NXP B.V. 2012. All rights reserved
 #
-############################################################################
-
+###############################################################################
 
 # Builds the Board API
 # Assumes called from AllBoardlibs.mk
@@ -40,27 +39,27 @@ BOARDCOMMON_PUB = $(BOARDCOMMON_BASE)/Common/Include
 BOARDDK_PUB     = $(BOARDCOMMON_BASE)/DK4/Include
 
 # build straight to library folder for development purposes
-BOARDDK_BLD  = $(BOARDDK4_BASE)/Library
-BOARDDK_SRC  = $(BOARDDK4_BASE)/Source
-HWAPI_PUB    = $(SDK_BASE_DIR)/Components/HardwareApi/Include
-GENERAL_PUB  = $(SDK_BASE_DIR)/Components/Common/Include
+BOARDDK_BLD = $(BOARDDK4_BASE)/Library
+BOARDDK_SRC = $(BOARDDK4_BASE)/Source
+HWAPI_PUB   = $(SDK_BASE_DIR)/Components/HardwareApi/Include
+GENERAL_PUB = $(SDK_BASE_DIR)/Components/Common/Include
 
 TARGET = $(BOARDDK_BLD)/BoardLib_$(JENNIC_CHIP_FAMILY).a
 
 # path to compiler settings so we can build from here
 include $(SDK_BASE_DIR)/Chip/Common/Build/config.mk
 
-#########################################################################
+###############################################################################
 # Library build
-#########################################################################
+###############################################################################
 
 # also include on board peripherals order maintained as original
 ARFLAGS = rcs
 
-LIBOBJS	= $(BOARDDK_SRC)/Button.o \
+LIBOBJS = $(BOARDDK_SRC)/Button.o \
           $(BOARDDK_SRC)/LcdDriver.o \
           $(BOARDCOMMON_SRC)/LcdDraw.o \
-		  $(BOARDCOMMON_SRC)/LcdExtras.o \
+          $(BOARDCOMMON_SRC)/LcdExtras.o \
           $(BOARDCOMMON_SRC)/LcdFont.o \
           $(BOARDCOMMON_SRC)/NXPLogo.o \
           $(BOARDDK_SRC)/HtsDriver.o \
@@ -68,10 +67,10 @@ LIBOBJS	= $(BOARDDK_SRC)/Button.o \
           $(BOARDDK_SRC)/SMBus.o \
           $(BOARDDK_SRC)/LedControl.o \
           $(BOARDDK_SRC)/PCA9634.o \
-		  $(BOARDDK_SRC)/LightingBoard.o \
-		  $(BOARDDK_SRC)/GenericBoard.o \
+          $(BOARDDK_SRC)/LightingBoard.o \
+          $(BOARDDK_SRC)/GenericBoard.o \
 
- #########################################################################
+###############################################################################
 
 CFLAGS += -DPCB_$(JENNIC_PCB)
 CFLAGS += -I$(BOARDCOMMON_PUB)
@@ -81,24 +80,24 @@ CFLAGS += -I$(HWAPI_PUB)
 
 CFLAGS += -Werror
 
-#########################################################################
+###############################################################################
 
 all: $(TARGET)
 
 %.o: $(BOARDDK_SRC)/$(notdir %).c
-	$(CC) -c -o $*.o $(CFLAGS) $<
+    $(CC) -c -o $*.o $(CFLAGS) $<
 
 %.o: $(BOARDDK_SRC)/$(notdir %).S
-	$(CC) -c -o $*.o $(ASFLAGS) $<
+    $(CC) -c -o $*.o $(ASFLAGS) $<
 
 $(TARGET): $(LIBOBJS)
-	@echo $(MAKEFLAGS)
-	$(AR) $(ARFLAGS) $@ $(LIBOBJS)
-	cp $@ $(subst BoardLib,libBoardLib,$@)
+    @echo $(MAKEFLAGS)
+    $(AR) $(ARFLAGS) $@ $(LIBOBJS)
+    cp $@ $(subst BoardLib,libBoardLib,$@)
 
-#########################################################################
+###############################################################################
 
 clean:
-	rm -f $(LIBOBJS) $(TARGET)
+    rm -f $(LIBOBJS) $(TARGET)
 
-#########################################################################
+###############################################################################

@@ -1,28 +1,28 @@
-##############################################################################
+###############################################################################
 #
-# MODULE:   config_JN516x.mk
+# MODULE:      config_JN516x.mk
 #
-# DESCRIPTION:Configuration make include file for JN516x
+# DESCRIPTION: Configuration make include file for JN516x
 #
-#############################################################################
-# 
+###############################################################################
+#
 # This software is owned by NXP and/or its supplier and is protected
 # under applicable copyright laws. All rights are reserved. We grant You,
 # and any third parties, a license to use this software solely and
 # exclusively on NXP products. You, and any third parties must reproduce
 # the copyright and warranty notice and any other legend of ownership on each
 # copy or partial copy of the software.
-# 
+#
 # THIS SOFTWARE IS PROVIDED "AS IS". NXP MAKES NO WARRANTIES, WHETHER
 # EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE,
 # ACCURACY OR LACK OF NEGLIGENCE. NXP SHALL NOT, IN ANY CIRCUMSTANCES,
 # BE LIABLE FOR ANY DAMAGES, INCLUDING, BUT NOT LIMITED TO, SPECIAL,
 # INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON WHATSOEVER.
-# 
+#
 # Copyright NXP 2012. All rights reserved
-# 
-#############################################################################
+#
+###############################################################################
 
 # Ensure chip and family are set
 override JENNIC_CHIP_FAMILY = JN516x
@@ -49,11 +49,11 @@ CFLAGS += -DWATCHDOG_ENABLED
 #
 #   JENNIC_HW_BBC_RXINCCA:    BBC RX during CCA capability
 #   JENNIC_HW_BBC_DMA:        BBC frame buffer DMA mechanism
-#   JENNIC_HW_BBC_ISA:        BBC inline security engine 
+#   JENNIC_HW_BBC_ISA:        BBC inline security engine
 #   JENNIC_SW_EXTERNAL_FLASH: whether external flash is supported
-#   JN516X_DMA_UART_BACKWARDS_COMPATIBLE_API: API behaves like the older versions with no visible UART DMA 
+#   JN516X_DMA_UART_BACKWARDS_COMPATIBLE_API: API behaves like the older versions with no visible UART DMA
 #   UART_BACKWARDS_COMPATIBLE_API: API behaves like the older versions (supercedes above)
-#   PDM_DESCRIPTOR_BASED_API: Use new descriptorless API interface 
+#   PDM_DESCRIPTOR_BASED_API: Use new descriptorless API interface
 #
 CFLAGS += -DJENNIC_HW_BBC_RXINCCA=1
 CFLAGS += -DJENNIC_HW_BBC_DMA=1
@@ -72,53 +72,52 @@ LDFLAGS += -L$(CHIP_BASE_DIR)/Library
 
 # Standard libraries: Peripheral API, MAC, etc.
 ifneq ($(JENNIC_STACK), None)
- ifeq ($(JENNIC_MAC), MAC)
-  LDLIBS  += AppApi_$(REDUCED_MAC_LIB_SUFFIX)$(JENNIC_CHIP_FAMILY)
-  LDLIBS  += MAC_$(REDUCED_MAC_LIB_SUFFIX)$(JENNIC_CHIP_FAMILY)
-  LDLIBS  += TimerServer_$(JENNIC_CHIP_FAMILY)
-  LDLIBS  += TOF_$(JENNIC_CHIP_FAMILY)
-  LDLIBS  += Xcv_$(JENNIC_CHIP_FAMILY)
- else
-  ifneq ($(findstring $(JENNIC_MAC),MiniMac MiniMacShim),)
-   LDLIBS  += MiniMac_$(JENNIC_CHIP_FAMILY)
-   LDLIBS  += MiniMacShim_$(JENNIC_CHIP_FAMILY)
-  endif
-  LDLIBS  += MMAC_$(JENNIC_CHIP_FAMILY)
- endif
+    ifeq ($(JENNIC_MAC), MAC)
+        LDLIBS += AppApi_$(REDUCED_MAC_LIB_SUFFIX)$(JENNIC_CHIP_FAMILY)
+        LDLIBS += MAC_$(REDUCED_MAC_LIB_SUFFIX)$(JENNIC_CHIP_FAMILY)
+        LDLIBS += TimerServer_$(JENNIC_CHIP_FAMILY)
+        LDLIBS += TOF_$(JENNIC_CHIP_FAMILY)
+        LDLIBS += Xcv_$(JENNIC_CHIP_FAMILY)
+    else
+        ifneq ($(findstring $(JENNIC_MAC),MiniMac MiniMacShim), )
+            LDLIBS += MiniMac_$(JENNIC_CHIP_FAMILY)
+            LDLIBS += MiniMacShim_$(JENNIC_CHIP_FAMILY)
+        endif
+            LDLIBS += MMAC_$(JENNIC_CHIP_FAMILY)
+        endif
 endif
-LDLIBS  += Aes_$(JENNIC_CHIP_FAMILY)
-LDLIBS  += HardwareApi_$(JENNIC_CHIP_FAMILY)
-LDLIBS  += MicroSpecific_$(JENNIC_CHIP_FAMILY)
-LDLIBS  += Boot_$(JENNIC_CHIP_FAMILY)
+LDLIBS += Aes_$(JENNIC_CHIP_FAMILY)
+LDLIBS += HardwareApi_$(JENNIC_CHIP_FAMILY)
+LDLIBS += MicroSpecific_$(JENNIC_CHIP_FAMILY)
+LDLIBS += Boot_$(JENNIC_CHIP_FAMILY)
 
 # Export linker command file if building patch library
 ifeq ($(JENNIC_STACK), None)
-LINKER_FILE = AppBuildNone
+    LINKER_FILE = AppBuildNone
 else
-ifneq ($(findstring $(JENNIC_MAC),MiniMac MiniMacShim),)
-LINKER_FILE = AppBuildNone
-else
-LINKER_FILE = AppBuildMac
-endif
+    ifneq ($(findstring $(JENNIC_MAC),MiniMac MiniMacShim), )
+        LINKER_FILE = AppBuildNone
+    else
+        LINKER_FILE = AppBuildMac
+    endif
 endif
 
 LINKCMD ?= $(LINKER_FILE).ld
 
 # Hardware debug support (NOTE: JN516x doesn't need separate library as JTag initialised in bootloader)
 ifeq ($(HARDWARE_DEBUG_ENABLED), 1)
-LDFLAGS += -Wl,--defsym,g_bSWConf_Debug=1
-ifeq ($(DEBUG_PORT), UART1)
-LDFLAGS += -Wl,-defsym,g_bSWConf_AltDebugPort=1
-else
-ifneq ($(DEBUG_PORT), UART0)
-$(error if DEBUG=HW: Must define DEBUG_PORT=UART0 or DEBUG_PORT=UART1)
+    LDFLAGS += -Wl,--defsym,g_bSWConf_Debug=1
+    ifeq ($(DEBUG_PORT), UART1)
+        LDFLAGS += -Wl,-defsym,g_bSWConf_AltDebugPort=1
+    else
+        ifneq ($(DEBUG_PORT), UART0)
+            $(error if DEBUG=HW: Must define DEBUG_PORT=UART0 or DEBUG_PORT=UART1)
+        endif
+    endif
+    $(info Building HW debug version ...)
 endif
-endif
-$(info  Building HW debug version ...)
 
-endif
-
-#########################################################################
+###############################################################################
 # exports
 
 export JENNIC_CHIP_FAMILY JENNIC_CHIP LDLIBS CFLAGS LDFLAGS LINKCMD

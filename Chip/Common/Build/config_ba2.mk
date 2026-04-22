@@ -1,17 +1,18 @@
 ###############################################################################
 #
-# MODULE:   config_ba2.mk
+# MODULE:      config_ba2.mk
 #
 # DESCRIPTION: Compiler definitions for the BA2 architecture
-# This file should only contain architecture specific options.
+#              This file should only contain architecture specific options.
+#
 ###############################################################################
 #
 # This software is owned by NXP B.V. and/or its supplier and is protected
 # under applicable copyright laws. All rights are reserved. We grant You,
 # and any third parties, a license to use this software solely and
-# exclusively on NXP products [NXP Microcontrollers such as JN5148, JN5142, JN5139]. 
+# exclusively on NXP products [NXP Microcontrollers such as JN5148, JN5142, JN5139].
 # You, and any third parties must reproduce the copyright and warranty notice
-# and any other legend of ownership on each copy or partial copy of the 
+# and any other legend of ownership on each copy or partial copy of the
 # software.
 #
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
@@ -54,7 +55,7 @@ CFLAGS += -fshort-enums
 LDFLAGS += -fshort-enums
 
 # Turn on all common warnings
-CFLAGS += -Wall 
+CFLAGS += -Wall
 
 # Turn on some additional useful warnings
 CFLAGS += -Wpacked -Wcast-align
@@ -62,41 +63,43 @@ CFLAGS += -Wpacked -Wcast-align
 # Output each function and static data in their own sections
 CFLAGS += -fdata-sections -ffunction-sections
 
+###############################################################################
 # Debug Support
 
 ifeq ($(DEBUG), HW)
-DISABLE_LTO ?= 1
-CFLAGS  += -g -DGDB
-LDFLAGS  += -g
-# Optimise at level 0 instead of size
-CFLAGS  := $(subst -Os,-O0,$(CFLAGS))
-LDFLAGS  := $(subst -Os,-O0,$(LDFLAGS))
-HARDWARE_DEBUG_ENABLED=1
+    DISABLE_LTO ?= 1
+    CFLAGS += -g -DGDB
+    LDFLAGS += -g
+    # Optimise at level 0 instead of size
+    CFLAGS := $(subst -Os,-O0,$(CFLAGS))
+    LDFLAGS := $(subst -Os,-O0,$(LDFLAGS))
+    HARDWARE_DEBUG_ENABLED = 1
 endif
 
 ifeq ($(DEBUG), HW_SIZEOPT)
-DISABLE_LTO ?= 1
-CFLAGS  += -g -DGDB
-LDFLAGS  += -g
-HARDWARE_DEBUG_ENABLED=1
-$(info No optimisation enabled with HW debug ...)
+    DISABLE_LTO ?= 1
+    CFLAGS += -g -DGDB
+    LDFLAGS += -g
+    HARDWARE_DEBUG_ENABLED = 1
+    $(info No optimisation enabled with HW debug ...)
 endif
 
 ifeq ($(HARDWARE_DEBUG_ENABLED), 1)
-# Set DEBUG_PORT to UART0 or UART1 dependant on connection to serial port on board
-CFLAGS += -D$(DEBUG_PORT)_DEBUG
-CFLAGS  += -DHWDEBUG
-BIN_SUFFIX ?= _hwdbg
-$(info Building HW debug version ...)
+    # Set DEBUG_PORT to UART0 or UART1 dependant on connection to serial port on board
+    CFLAGS += -D$(DEBUG_PORT)_DEBUG
+    CFLAGS += -DHWDEBUG
+    BIN_SUFFIX ?= _hwdbg
+    $(info Building HW debug version ...)
 endif
 
+###############################################################################
 # Link Time Optimisation configuration
 
-# Default (unless debugging) is to compile & link using link time optimisation, 
+# Default (unless debugging) is to compile & link using link time optimisation,
 # but allow it to be disabled by setting DISABLE_LTO=1
 ifneq ($(DISABLE_LTO), 1)
-CFLAGS += -flto 
-LDFLAGS += -flto 
+    CFLAGS += -flto
+    LDFLAGS += -flto
 endif
 
 ###############################################################################
