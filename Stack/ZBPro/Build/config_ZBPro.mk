@@ -33,12 +33,14 @@
 # Tools
 
 ifeq ($(OS), Windows_NT)
-    PDUMCONFIG = $(TOOL_BASE_DIR)/PDUMConfig/bin/PDUMConfig.exe
-    ZPSCONFIG = $(TOOL_BASE_DIR)/ZPSConfig/bin/ZPSConfig.exe
+    PYTHON ?= $(shell where python3 2> NUL)
 else
-    PDUMCONFIG = $(TOOL_BASE_DIR)/PDUMConfig/linuxbin/PDUMConfig
-    ZPSCONFIG = $(TOOL_BASE_DIR)/ZPSConfig/linuxbin/ZPSConfig
+    PYTHON ?= $(shell command -v python3 2> /dev/null)
 endif
+
+PDUMCONFIG = $(PYTHON) $(TOOL_BASE_DIR)/PDUMConfig/Source/PDUMConfig.py
+ZPSCONFIG = $(PYTHON) $(TOOL_BASE_DIR)/ZPSConfig/Source/ZPSConfig.py
+JET = $(PYTHON) $(TOOL_BASE_DIR)/OTAUtils/Source/JET.py
 
 STACK_SIZE ?= 5000
 MINIMUM_HEAP_SIZE ?= 2000
