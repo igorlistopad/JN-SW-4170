@@ -57,28 +57,23 @@ INCFLAGS += -I$(COMPONENTS_BASE_DIR)/Random/Include
 INCFLAGS += -I$(COMPONENTS_BASE_DIR)/ZigbeeCommon/Include
 
 ifeq ($(JENNIC_MAC), MAC)
-    $(info JENNIC_MAC is MAC )
     APPLIBS += ZPSMAC
     CFLAGS  += -DREDUCED_ZIGBEE_MAC_BUILD
     REDUCED_MAC_LIB_SUFFIX = ZIGBEE_
 else
-    $(info JENNIC_MAC is Mini MAC shim )
     JENNIC_MAC = MiniMacShim
     JENNIC_MAC_PLATFORM ?= SOC
     #APPLIBS += ZPSMAC_Mini
 
     # Determine correct MAC library for platform
     ifeq ($(JENNIC_MAC_PLATFORM), SOC)
-        $(info JENNIC_MAC_PLATFORM is SOC)
         APPLIBS += ZPSMAC_Mini_SOC
     else
         ifeq ($(JENNIC_MAC_PLATFORM), SERIAL)
-            $(info JENNIC_MAC_PLATFORM is SERIAL)
             APPLIBS += ZPSMAC_Mini_SERIAL
             APPLIBS += SerialMiniMacUpper
         else
             ifeq ($(JENNIC_MAC_PLATFORM), MULTI)
-                $(info JENNIC_MAC_PLATFORM is MULTI)
                 APPLIBS += ZPSMAC_Mini_MULTI
                 APPLIBS += SerialMiniMacUpper
             endif
