@@ -39,7 +39,7 @@ INCFLAGS += -I$(BDB_INC_DIR)
 BDB_COMN_INC_DIR += $(COMPONENTS_BASE_DIR)/BDB/Source/Common
 INCFLAGS += -I$(BDB_COMN_INC_DIR)
 BDB_COMN_SRC_DIR = $(COMPONENTS_BASE_DIR)/BDB/Source/Common
-COMN_SRC := $(shell cd $(BDB_COMN_SRC_DIR); ls *.c)
+COMN_SRC := $(shell cd $(BDB_COMN_SRC_DIR) && LC_ALL=C ls *.c)
 APPSRC += $(COMN_SRC)
 
 # ZigBee Common Include and Source
@@ -63,7 +63,7 @@ ifeq ($(BDB_SUPPORT_NWK_STEERING), 1)
     BDB_NS_INC_DIR = $(COMPONENTS_BASE_DIR)/BDB/Source/NwkSteering
     BDB_NS_SRC_DIR = $(COMPONENTS_BASE_DIR)/BDB/Source/NwkSteering
     INCFLAGS += -I$(BDB_NS_INC_DIR)
-    NS_SRC := $(shell cd $(BDB_NS_SRC_DIR); ls *.c)
+    NS_SRC := $(shell cd $(BDB_NS_SRC_DIR) && LC_ALL=C ls *.c)
     APPSRC += $(NS_SRC)
 endif
 
@@ -72,7 +72,7 @@ ifeq ($(BDB_SUPPORT_NWK_FORMATION), 1)
     BDB_NF_INC_DIR = $(COMPONENTS_BASE_DIR)/BDB/Source/NwkFormation
     BDB_NF_SRC_DIR = $(COMPONENTS_BASE_DIR)/BDB/Source/NwkFormation
     INCFLAGS += -I$(BDB_NF_INC_DIR)
-    NF_SRC := $(shell cd $(BDB_NF_SRC_DIR); ls *.c)
+    NF_SRC := $(shell cd $(BDB_NF_SRC_DIR) && LC_ALL=C ls *.c)
     APPSRC += $(NF_SRC)
 endif
 

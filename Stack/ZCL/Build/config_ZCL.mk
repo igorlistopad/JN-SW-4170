@@ -110,92 +110,92 @@ ZCL_SRC_DIRS = $(ZCIF_SRC):$(CLUSTERS_SRC_DIRS):$(DEVICES_SRC_DIRS)
 ###############################################################################
 
 ifeq ($(GP_SUPPORT), 1)
-    GPSRC := $(shell cd $(CLUSTERS_GREENPOWER_SRC); ls *.c)
+    GPSRC := $(shell cd $(CLUSTERS_GREENPOWER_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(GPSRC)
     APPSRC += gp.c
 endif
 
 # Clusters
 # All General cluster files
-GENSRCS := $(shell cd $(CLUSTERS_GENERAL_SRC); ls *.c)
+GENSRCS := $(shell cd $(CLUSTERS_GENERAL_SRC) && LC_ALL=C ls *.c)
 APPSRC += $(GENSRCS)
 
 # All Generic devices
-GENERIC_SRCS := $(shell cd $(DEVICES_GENERIC_SRC); ls *.c)
+GENERIC_SRCS := $(shell cd $(DEVICES_GENERIC_SRC) && LC_ALL=C ls *.c)
 APPSRC += $(GENERIC_SRCS)
 
 ifeq ($(APP_CLUSTERS_MEASUREMENT_AND_SENSING_SRC), 1)
     # All measurement and sensing cluster files
-    MSSRCS := $(shell cd $(CLUSTERS_MEASUREMENT_AND_SENSING_SRC); ls *.c)
+    MSSRCS := $(shell cd $(CLUSTERS_MEASUREMENT_AND_SENSING_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(MSSRCS)
 endif
 
 ifeq ($(APP_CLUSTER_LIGHTING_SRC), 1)
     # All Lighting cluster files
-    LSRCS := $(shell cd $(CLUSTER_LIGHTING_SRC); ls *.c)
+    LSRCS := $(shell cd $(CLUSTER_LIGHTING_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(LSRCS)
-    ZLO_SRCS := $(shell cd $(DEVICES_ZLO_SRC); ls *.c)
+    ZLO_SRCS := $(shell cd $(DEVICES_ZLO_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(ZLO_SRCS)
 endif
 
 ifeq ($(APP_CLUSTERS_HVAC_SRC), 1)
     # All HVAC cluster files
-    HVACSRCS := $(shell cd $(CLUSTERS_HVAC_SRC); ls *.c)
+    HVACSRCS := $(shell cd $(CLUSTERS_HVAC_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(HVACSRCS)
     # All HVAC devices
-    HVAC_HOME_SRC := $(shell cd $(DEVICES_HVAC_SRC); ls *.c)
+    HVAC_HOME_SRC := $(shell cd $(DEVICES_HVAC_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(HVAC_HOME_SRC)
 endif
 
 ifeq ($(APP_CLUSTERS_CLOSURES_SRC), 1)
     # All Closures cluster files
-    CLSSRCS := $(shell cd $(CLUSTERS_CLOSURES_SRC); ls *.c)
+    CLSSRCS := $(shell cd $(CLUSTERS_CLOSURES_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(CLSSRCS)
     # All CLosure devices
-    CLS_HOME_SRC := $(shell cd $(DEVICES_CLOSURES_SRC); ls *.c)
+    CLS_HOME_SRC := $(shell cd $(DEVICES_CLOSURES_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(CLS_HOME_SRC)
 endif
 
 
 ifeq ($(APP_CLUSTERS_SECURITY_AND_SAFETY_SRC), 1)
     # All SecurityAndSafety cluster files
-    IASSRCS := $(shell cd $(CLUSTERS_SECURITY_AND_SAFETY_SRC); ls *.c)
+    IASSRCS := $(shell cd $(CLUSTERS_SECURITY_AND_SAFETY_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(IASSRCS)
-    SECURITY_AND_SAFETY_HOME_SRC := $(shell cd $(DEVICES_SECURITY_AND_SAFETY_SRC); ls *.c)
+    SECURITY_AND_SAFETY_HOME_SRC := $(shell cd $(DEVICES_SECURITY_AND_SAFETY_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(SECURITY_AND_SAFETY_HOME_SRC)
 endif
 
 ifeq ($(APP_CLUSTERS_SMART_ENERGY_SRC), 1)
     # Selected Smart Energy cluster files
-    SESRCS := $(shell cd $(CLUSTERS_SMART_ENERGY_SRC); ls *.c)
+    SESRCS := $(shell cd $(CLUSTERS_SMART_ENERGY_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(SESRCS)
-    SMART_ENERGY_HOME_SRC := $(shell cd $(DEVICES_SMART_ENERGY_SRC); ls *.c)
+    SMART_ENERGY_HOME_SRC := $(shell cd $(DEVICES_SMART_ENERGY_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(SMART_ENERGY_HOME_SRC)
 endif
 
 # OTA files
 ifeq ($(APP_CLUSTERS_OTA_SRC), 1)
-    OTASRCS := $(shell cd $(CLUSTERS_OTA_SRC); ls *.c)
+    OTASRCS := $(shell cd $(CLUSTERS_OTA_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(OTASRCS)
 endif
 
 ifeq ($(APP_CLUSTER_COMMISSIONING_SRC), 1)
     # All Commissioning cluster files
-    COMSRCS := $(shell cd $(CLUSTERS_COMMISSIOING_SRC); ls *.c)
+    COMSRCS := $(shell cd $(CLUSTERS_COMMISSIOING_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(COMSRCS)
 endif
 
 ifeq ($(APP_CLUSTERS_APPLIANCE_MANAGEMENT_SRC), 1)
     # All ApplianceManagement cluster files
-    AMSRCS := $(shell cd $(CLUSTERS_APPLIANCE_MANAGEMENT_SRC); ls *.c)
+    AMSRCS := $(shell cd $(CLUSTERS_APPLIANCE_MANAGEMENT_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(AMSRCS)
     # All ApplianceManagement devices
-    APPLIANCE_MANAGEMENT_SRC := $(shell cd $(DEVICES_APPLIANCE_MANAGEMENT_SRC); ls *.c)
+    APPLIANCE_MANAGEMENT_SRC := $(shell cd $(DEVICES_APPLIANCE_MANAGEMENT_SRC) && LC_ALL=C ls *.c)
     APPSRC += $(APPLIANCE_MANAGEMENT_SRC)
 endif
 
 # ZCL now built from source
-ZCLSRCS := $(shell cd $(ZCIF_SRC); ls *.c)
+ZCLSRCS := $(shell cd $(ZCIF_SRC) && LC_ALL=C ls *.c)
 APPSRC += $(ZCLSRCS)
 
 ###############################################################################
