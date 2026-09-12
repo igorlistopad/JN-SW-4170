@@ -32,11 +32,7 @@
 ###############################################################################
 # Tools
 
-ifeq ($(OS), Windows_NT)
-    PYTHON ?= $(shell where python3 2> NUL)
-else
-    PYTHON ?= $(shell command -v python3 2> /dev/null)
-endif
+PYTHON ?= $(shell command -v python3 2> /dev/null)
 
 PDUMCONFIG = $(PYTHON) $(TOOL_BASE_DIR)/PDUMConfig/Source/PDUMConfig.py
 ZPSCONFIG = $(PYTHON) $(TOOL_BASE_DIR)/ZPSConfig/Source/ZPSConfig.py
